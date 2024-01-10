@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Inside the head of your HTML file -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Login</title>
+    <link rel="stylesheet" href="login.css">
 </head>
+
+<!-- Body of your HTML file -->
 <body>
-    
-    <input type="text" id="brukernavn" placeholder="brukernavn">
-    <input type="password" id="passord" placeholder="passord">
-    <button onclick="login()">Logg inn</button>
-    <p id="feilmelding"></p>
-    <script src="script.js"></script>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="myForm">
+            <div class="form-group">
+                <label for="nybrukernavn">Username:</label>
+                <input type="text" id="nybrukernavn" required>
+            </div>
 
-    <A href="lagBruker.html"><button>lag ny bruker</button></A>
+            <div class="form-group">
+                <label for="nypassord">Password:</label>
+                <input type="password" id="nypassord" required>
+            </div>
 
+            <button type="button" onclick="lagnybruker()">Submit</button>
+        </form>
+    </div>
+
+    <script src="nybruker.js"></script>
 </body>
-</html>

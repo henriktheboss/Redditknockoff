@@ -12,7 +12,7 @@ async function login(){
 
     if(respons.ok){
         //(const data = respons.json()
-        window.location.href = "profil.html"
+        window.location.href = "index.html"
     }
     else{
         const data = await respons.json()
