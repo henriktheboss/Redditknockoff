@@ -21,9 +21,9 @@ applikasjon.get("/", function(foresporsel, respons){
     respons.sendFile(path.join(__dirname,"login.html"))
 })
 
-applikasjon.post("/addUser", function(foresporsel, respons){
-    let sqlSporring = "INSERT INTO bruker (brukernavn, passord) VALUES (?, ?)";
-    let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord];
+applikasjon.post("/", function(foresporsel,respons){
+    let sqlSporring = "SELECT * FROM bruker WHERE brukernavn = ? AND passord = ?" // ? placeholders for parameter
+    let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord]
     
     database.get(sqlSporring,parameter, function(feilmelding, rad){
         if(feilmelding){
