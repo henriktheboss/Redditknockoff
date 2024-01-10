@@ -18,7 +18,7 @@ let database = new sqliteModul.Database("brukere.db", function(feilmelding){
 })
 
 applikasjon.get("/", function(foresporsel, respons){
-    respons.sendFile(path.join(__dirname,"index.html"))
+    respons.sendFile(path.join(__dirname,"login.html"))
 })
 
 applikasjon.post("/", function(foresporsel,respons){
