@@ -1,24 +1,25 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('brukere.db');
+// nybruker.js
 
-async function lagnybruker() {
-    const brukernavn = document.getElementById("nybrukernavn").value;
-    const passord = document.getElementById("nypassord").value;
+function lagnybruker() {
+    var username = document.getElementById('nybrukernavn').value;
+    var password = document.getElementById('nypassord').value;
 
-    if (brukernavn && passord) {
-        // Insert data into the SQLite database
-        db.run('INSERT INTO brukere (brukernavn, passord) VALUES (?, ?)', [brukernavn, passord], function(err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log(`A new user with ID ${this.lastID} has been added to the database.`);
-        });
-    } else {
-        console.log("Please fill in both username and password.");
-    }
+    // Make an HTTP request to the server-side endpoint for adding a new user
+    fetch('http://localhost:3000/addUser', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ brukernavn: username, passord: password }),
+})
+
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Handle the response as needed
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle the error as needed
+    });
 }
-
-// Close the database connection when the script is terminated
-process.on('exit', () => {
-    db.close();
-});

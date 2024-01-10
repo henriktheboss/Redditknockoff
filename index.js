@@ -21,9 +21,9 @@ applikasjon.get("/", function(foresporsel, respons){
     respons.sendFile(path.join(__dirname,"login.html"))
 })
 
-applikasjon.post("/", function(foresporsel,respons){
-    let sqlSporring = "SELECT * FROM bruker WHERE brukernavn = ? AND passord = ?" // ? placeholders for parameter
-    let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord]
+applikasjon.post("/addUser", function(foresporsel, respons){
+    let sqlSporring = "INSERT INTO bruker (brukernavn, passord) VALUES (?, ?)";
+    let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord];
     
     database.get(sqlSporring,parameter, function(feilmelding, rad){
         if(feilmelding){
@@ -47,6 +47,26 @@ applikasjon.post("/", function(foresporsel,respons){
 applikasjon.listen(portNummer,function(){
     console.log(`Server åpen på http://localhost:${portNummer}`)
 })
+
+// Your existing server-side script
+
+applikasjon.post("/addUser", function(foresporsel, respons){
+    let sqlSporring = "INSERT INTO bruker (brukernavn, passord) VALUES (?, ?)";
+    let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord];
+    
+    database.run(sqlSporring, parameter, function(feilmelding){
+        if(feilmelding){
+            respons.status(400).json({"Feilmelding":feilmelding.message});
+            return;
+        }
+        
+        respons.json({
+            "melding":"Bruker lagt til",
+            "brukernavn": foresporsel.body.brukernavn,
+            "passord": foresporsel.body.passord
+        });
+    });
+});
 
 
 
