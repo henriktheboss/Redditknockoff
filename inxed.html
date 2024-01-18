@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-
     <div class="topnav">
-        <a class="active" href="inxed.html">Home</a>
-        <a href="account.html">account</a>
-        <a href="#contact">Contact</a>
-        <div class="search-container">
-          <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search">
-          </form>
-        </div>
-      </div>
-    
+        <a><img src="462145.webp" class="hamburgerMenu" id="hamburgerIcon"></a>
+        <a class="reddit">Chat room</a>
+        <a class="profil">Profil</a>
+    </div>
+
+    <div class="sidepanel" id="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidePanel()">&times;</a>
+        <!-- Content for the side panel -->
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <script src="burgermenu.js"></script>
 </body>
 </html>
