@@ -17,6 +17,8 @@ function lagnybruker() {
     .then(data => {
         console.log(data);
         // Handle the response as needed
+        window.location.href = "inxed.html"
+        alert("New account created")
     })
     .catch(error => {
         console.error('Error:', error);
