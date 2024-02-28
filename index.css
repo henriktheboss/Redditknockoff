@@ -65,6 +65,7 @@ body {
   color: #f1f1f1;
 }
 
+
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {
     display: none;
@@ -110,5 +111,48 @@ body {
   color: #818181;
 }
 
-/* Other existing styles */
-/* ... */
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.profil-sidepannel
+{
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  right: 0px;
+  transform: translateX(250px);
+}
+
+.profil-sidepannel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 30px;
+  margin-left: 50px;
+}
+
+.profil-sidepannel.closebtn:hover {
+  color: #818181;
+}
+
+.profil-sidepannel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
