@@ -12,17 +12,17 @@
         <form id="myForm">
             <div class="form-group">
                 <label for="nybrukernavn">Username:</label>
-                <input type="text" id="nybrukernavn" required>
+                <input type="text" id="brukernavn" required>
             </div>
-
             <div class="form-group">
                 <label for="nypassord">Password:</label>
                 <input type="password" id="nypassord" required>
             </div>
 
-            <button type="button" onclick="lagnybruker()">Submit</button>
+            <button type="button" onclick="setCurrentUser(); lagnybruker();">Submit</button>
         </form>
     </div>
 
    <script src="nybruker.js"></script>
+   <script src="current_user.js"></script>
 </body>

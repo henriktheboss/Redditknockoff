@@ -1,7 +1,7 @@
 // nybruker.js
 
 function lagnybruker() {
-    var username = document.getElementById('nybrukernavn').value;
+    var username = document.getElementById('brukernavn').value;
     var password = document.getElementById('nypassord').value;
 
     // Make an HTTP request to the server-side endpoint for adding a new user

@@ -21,6 +21,32 @@ applikasjon.get("/", function(foresporsel, respons){
     respons.sendFile(path.join(__dirname,"login.html"))
 })
 
+function createDatabase() {
+    let database = new sqliteModul.Database("brukere.db", function(feilmelding){
+        if(feilmelding){
+            console.error(feilmelding.message) //viser error om noe er galt
+        }
+    })
+
+    // Create table if not exists
+    database.run(`CREATE TABLE IF NOT EXISTS bruker (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        brukernavn TEXT,
+        passord TEXT
+    )`, function(err) {
+        if (err) {
+            console.error("Error creating table:", err.message);
+        } else {
+            console.log("Table 'bruker' created successfully");
+        }
+    });
+
+    database.close();
+}
+
+// Call the function to create the database
+createDatabase();
+
 applikasjon.post("/", function(foresporsel,respons){
     let sqlSporring = "SELECT * FROM bruker WHERE brukernavn = ? AND passord = ?" // ? placeholders for parameter
     let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord]
@@ -43,6 +69,8 @@ applikasjon.post("/", function(foresporsel,respons){
         }
     })
 })
+
+
 
 applikasjon.listen(portNummer,function(){
     console.log(`Server åpen på http://localhost:${portNummer}`)

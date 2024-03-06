@@ -3,7 +3,7 @@ let currentUser = ""
 let profil = document.getElementById("profil");
 
 function setCurrentUser() {   
-    const usernameInput = document.getElementById('brukernavn');
+    const usernameInput = document.getElementById("brukernavn");
     console.log('Here is the input', usernameInput)
 
     currentUser = usernameInput.value;
