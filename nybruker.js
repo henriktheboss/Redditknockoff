@@ -2,7 +2,7 @@
 
 function lagnybruker() {
     var username = document.getElementById('brukernavn').value;
-    var password = document.getElementById('nypassord').value;
+    var password = document.getElementById('passord').value;
 
     // Make an HTTP request to the server-side endpoint for adding a new user
     fetch('http://localhost:3000/addUser', {
