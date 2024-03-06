@@ -26,3 +26,4 @@ function toggleProfilSidepannel() {
     }
 }
 
+console.log(currentUser)
