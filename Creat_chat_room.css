@@ -56,7 +56,3 @@ button[type="button"] {
 button[type="button"]:hover {
     background-color: #b3b3b3;
 }
-
-.name{
-resize: none;
-}
