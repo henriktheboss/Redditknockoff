@@ -6,7 +6,7 @@ function cancelForm()
 function LagNyChatRoom() {
     const name = document.getElementById('name').value;
     const description = document.getElementById('description').value;
-    const username = 'henrik'; // Set username to 'henrik'
+    const username = localStorage.getItem('loggedinBruker')
     
     console.log("test12")
     // Send data to server
