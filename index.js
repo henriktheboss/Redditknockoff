@@ -116,6 +116,26 @@ applikasjon.post("/addUser", function(foresporsel, respons){
     });
 });
 
+
+applikasjon.post("/addChatRoom", function(foresporsel, respons){
+    let sqlSporring = "INSERT INTO chatroom (name, description, username) VALUES (?, ?, ?)";
+    let parameter = [foresporsel.body.name, foresporsel.body.description, foresporsel.body.username];
+    
+    database.run(sqlSporring, parameter, function(feilmelding){
+        if(feilmelding){
+            respons.status(400).json({"Feilmelding":feilmelding.message});
+            return;
+        }
+        
+        respons.json({
+            "melding":"chat room lagt til",
+            "name": foresporsel.body.name,
+            "description": foresporsel.body.description,
+            "username": foresporsel.body.description
+        });
+    });
+});
+
 applikasjon.listen(portNummer,function(){
     console.log(`Server åpen på http://localhost:${portNummer}`);
 });
