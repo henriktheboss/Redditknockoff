@@ -1,0 +1,25 @@
+.text-feild
+{
+    left: 50%;
+    top: 90%;
+    position: absolute;
+    
+}
+
+
+.textarea
+{
+    resize: none;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 41px;
+    max-height: 97px;
+    width: 500px;
+    border: 1px solid #e4e7ec;
+    border-radius: 20px;
+    background-color: #f9fafb;
+    outline: none;
+    padding: 0 24px 0 24px;
+    overflow: hidden;
+    transform: translateX(-50%);
+}

@@ -25,5 +25,3 @@ function toggleProfilSidepannel() {
         sidepanel.style.transform = 'translateX(0px)';
     }
 }
-
-console.log(currentUser)
