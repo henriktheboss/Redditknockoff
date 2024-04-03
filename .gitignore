@@ -2,3 +2,4 @@
 *.sql
 *.sqlite
 brukere.db
+*.DS_Store
