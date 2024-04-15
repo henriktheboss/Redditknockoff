@@ -7,8 +7,7 @@ function LagNyChatRoom() {
     const name = document.getElementById('name').value;
     const description = document.getElementById('description').value;
     const username = localStorage.getItem('loggedinBruker')
-    
-    console.log("test12")
+
     // Send data to server
     fetch('http://localhost:3000/addChatRoom', {
         method: 'POST',
@@ -21,7 +20,7 @@ function LagNyChatRoom() {
     .then(data => {
         console.log(data);
         // Handle the response as needed
-        window.location.href = "inxed.html"
+        //window.location.href = "inxed.html"
         alert("New chat room created")
     })
     .catch(error => {

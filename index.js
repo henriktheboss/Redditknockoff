@@ -2,6 +2,7 @@ const exp = require("constants");
 const expressModul = require("express");
 const path = require("path");
 const sqliteModul = require("sqlite3").verbose();
+const fs = require('fs');
 
 const applikasjon = expressModul(); //express modul instans
 const portNummer = 3000;
@@ -135,6 +136,80 @@ applikasjon.post("/addChatRoom", function(foresporsel, respons){
         });
     });
 });
+
+function generateHTMLFromDatabase(database) {
+    // Fetch data from database
+    database.all("SELECT name FROM chatroom", function(err, rows) {
+        if (err) {
+            console.error("Error fetching data from database:", err.message);
+            return;
+        }
+        rows.forEach(row => {
+            const chatroomName = row.name;
+            const fileName = 'chatRoom/' + chatroomName.toLowerCase().replace(/\s+/g, '_') + '.html'; // Generate file name from chatroom name
+            const htmlContent = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>dette funker ikke </title>
+                <link rel="stylesheet" href="index.css">
+                <link rel="stylesheet" href="chatRoom.css">
+            </head>
+            <body>
+                <div class="topnav">
+                    <a><img src="bilder/462145.webp" class="hamburgerMenu" id="hamburgerIcon"></a>
+                    <a class="reddit">Chat room</a>
+                    <a class="profil" id="profil">Profil</a>
+                </div>
+            
+                <div class="profil-sidepannel" id="profil-sidepannel">
+                    <a href="javascript:void(0)" class="closebtn" onclick="toggleProfilSidepannel()">&times;</a>
+                    <a href="#">Link 1</a>  
+                    <a href="#">Link 2</a>
+                    <a href="login.html">log out</a>
+                </div>
+                
+                <div class="sidepanel" id="sidepanel">
+                    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidePanel()">&times;</a>
+                    <a href="CreatChatRoom.html">Ny chat room</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            
+                <div class="text-feild">
+                    <a><input class="textarea" type="text"></a>
+                    <a><img class="send-knapp" src="bilder/images.png"></a>
+                </div>
+                <script src="burgermenu.js"></script>
+                <script src="current_user.js"></script>
+            </body>
+            </html>`;
+
+            // Check if file already exists
+            fs.access(fileName, fs.constants.F_OK, (err) => {
+                if (err) {
+                    if (err.code === 'ENOENT') {
+                        // File does not exist, create it
+                        fs.writeFile(fileName, htmlContent, function(err) {
+                            if (err) {
+                                console.error("Error writing HTML file:", err.message);
+                            } else {
+                                console.log(`HTML file ${fileName} created successfully`);
+                            }
+                        });
+                    } else {
+                        console.error("Error accessing file:", err.message);
+                    }
+                } else {
+                    console.log(`HTML file ${fileName} already exists, skipping creation`);
+                }
+            });
+        });
+    });
+}
+
+generateHTMLFromDatabase(database);
 
 applikasjon.listen(portNummer,function(){
     console.log(`Server åpen på http://localhost:${portNummer}`);
