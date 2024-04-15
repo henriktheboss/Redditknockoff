@@ -159,7 +159,7 @@ function generateHTMLFromDatabase(database) {
             <body>
                 <div class="topnav">
                     <a><img src="../bilder/462145.webp" class="hamburgerMenu" id="hamburgerIcon"></a>
-                    <a class="reddit">Chat room</a>
+                    <a class="reddit">${chatroomName}</a>
                     <a class="profil" id="profil">Profil</a>
                 </div>
             
