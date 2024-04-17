@@ -22,9 +22,12 @@ function LagNyChatRoom() {
         // Handle the response as needed
         //window.location.href = "inxed.html"
         alert("New chat room created")
+        window.location.href = "/chatRoom/" + name + ".html" ;
     })
     .catch(error => {
         console.error('Error:', error);
         // Handle the error as needed
     });
+   
 }
+
