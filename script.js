@@ -1,3 +1,8 @@
+function blockSpecialChar(e) {
+    var k = e.key;
+    return !(k === ' ');
+}
+
 async function login(){
     const brukernavn = document.getElementById("brukernavn").value
     const passord = document.getElementById("passord").value

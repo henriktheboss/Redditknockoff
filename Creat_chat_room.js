@@ -3,6 +3,11 @@ function cancelForm()
     window.location.href = "inxed.html";
 }
 
+function blockSpecialChar(e) {
+    var k = e.key;
+    return !(k === ' ' || k === '-');
+}
+
 function LagNyChatRoom() {
     const name = document.getElementById('name').value;
     const description = document.getElementById('description').value;

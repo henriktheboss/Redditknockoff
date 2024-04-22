@@ -1,5 +1,11 @@
 // nybruker.js
 
+
+function blockSpecialChar(e) {
+    var k = e.key;
+    return !(k === ' ');
+}
+
 function lagnybruker() {
     var username = document.getElementById('brukernavn').value;
     var password = document.getElementById('passord').value;

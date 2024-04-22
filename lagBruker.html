@@ -12,11 +12,11 @@
         <form id="myForm">
             <div class="form-group">
                 <label for="nybrukernavn">Username:</label>
-                <input type="text" id="brukernavn" required>
+                <input type="text" id="brukernavn" onkeypress="return blockSpecialChar(event)" required>
             </div>
             <div class="form-group">
                 <label for="nypassord">Password:</label>
-                <input type="password" id="passord" required>
+                <input type="password" id="passord" onkeypress="return blockSpecialChar(event)" required>
             </div>
 
             <button type="button" id="myBtn" onclick="setCurrentUser(); lagnybruker();">Submit</button>
