@@ -188,6 +188,20 @@ function generateHTMLFromDatabase(database) {
             
             `;
 
+            let createTableSql = `CREATE TABLE IF NOT EXISTS ${chatroomName} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                message TEXT,
+                timestamp TEXT,
+                profile TEXT
+            )`;
+
+            database.run(createTableSql, function(err) {
+                if (err) {
+                    console.error(`Error creating table for ${chatroomName}:`, err.message);
+                    return;
+                }
+            });
+
             // Check if file already exists
             fs.access(fileName, fs.constants.F_OK, (err) => {
                 if (err) {
