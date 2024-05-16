@@ -3,3 +3,4 @@
 *.sqlite
 brukere.db
 .DS_Store
+chatRoom/*
