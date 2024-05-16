@@ -227,11 +227,11 @@ function generateHTMLFromDatabase(database) {
 }
 
 applikasjon.post("/chatRoom", function(foresporsel, respons) {
-    let currentchatroom = foresporsel.foresporsel.chatroom;
+    let currentchatroom = foresporsel.body.chatroom;
     let sqlSporring = `INSERT INTO ${currentchatroom} (message, timestamp, profile) VALUES (?, ?, ?)`;
     let parameter = [foresporsel.body.message, foresporsel.body.timestamp, foresporsel.body.profile];
 
-    database.run(sqlSporring, parameter,chatroom, function(feilmelding) {
+    database.run(sqlSporring, parameter, function(feilmelding) {
         if (feilmelding) {
             return respons.status(400).json({ "Feilmelding": feilmelding.message });
         }
@@ -241,7 +241,7 @@ applikasjon.post("/chatRoom", function(foresporsel, respons) {
             "message": foresporsel.body.message,
             "timestamp": foresporsel.body.timestamp,
             "profile": foresporsel.body.profile,
-            "chatroom": foresporsel.curentchatroom.chatroom
+            "chatroom": currentchatroom
         });
     });
 });
