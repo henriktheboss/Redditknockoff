@@ -159,7 +159,7 @@ function generateHTMLFromDatabase(database) {
             <body>
                 <div class="topnav">
                     <a><img src="../bilder/462145.webp" class="hamburgerMenu" id="hamburgerIcon"></a>
-                    <a class="reddit">${chatroomName}</a>
+                    <a id="chatroomName" class="reddit">${chatroomName}</a>
                     <a class="profil" id="profil">Profil</a>
                 </div>
             
@@ -178,11 +178,12 @@ function generateHTMLFromDatabase(database) {
                 </div>
             
                 <div class="text-feild">
-                    <a><input class="textarea" type="text"></a>
-                    <a><img class="send-knapp" src="../bilder/images.png"></a>
+                    <a><input id="message" class="textarea" type="text"></a>
+                    <a><img onclick="send_message()" class="send-knapp" src="../bilder/images.png"></a>
                 </div>
                 <script src="../burgermenu.js"></script>
                 <script src="../current_user.js"></script>
+                <script src="../send-melding.js"></script>
             </body>
             </html>
             
@@ -225,6 +226,25 @@ function generateHTMLFromDatabase(database) {
     });
 }
 
+applikasjon.post("/chatRoom", function(foresporsel, respons) {
+    let currentchatroom = foresporsel.foresporsel.chatroom;
+    let sqlSporring = `INSERT INTO ${currentchatroom} (message, timestamp, profile) VALUES (?, ?, ?)`;
+    let parameter = [foresporsel.body.message, foresporsel.body.timestamp, foresporsel.body.profile];
+
+    database.run(sqlSporring, parameter,chatroom, function(feilmelding) {
+        if (feilmelding) {
+            return respons.status(400).json({ "Feilmelding": feilmelding.message });
+        }
+
+        respons.json({
+            "melding": "Melding lagt til",
+            "message": foresporsel.body.message,
+            "timestamp": foresporsel.body.timestamp,
+            "profile": foresporsel.body.profile,
+            "chatroom": foresporsel.curentchatroom.chatroom
+        });
+    });
+});
 setInterval(() => generateHTMLFromDatabase(database),100);
 
 applikasjon.listen(portNummer,function(){
