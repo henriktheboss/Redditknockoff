@@ -1,0 +1,41 @@
+ <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>NexusVibe</title>
+                <link rel="stylesheet" href="../index.css">
+                <link rel="stylesheet" href="../chatRoom.css">
+            </head>
+            <body>
+                <div class="topnav">
+                    <a><img src="../bilder/462145.webp" class="hamburgerMenu" id="hamburgerIcon"></a>
+                    <a id="chatroomName" class="reddit">F21</a>
+                    <a class="profil" id="profil">Profil</a>
+                </div>
+            
+                <div class="profil-sidepannel" id="profil-sidepannel">
+                    <a href="javascript:void(0)" class="closebtn" onclick="toggleProfilSidepannel()">&times;</a>
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="../login.html">log out</a>
+                </div>
+                
+                <div class="sidepanel" id="sidepanel">
+                    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidePanel()">&times;</a>
+                    <a href="../CreatChatRoom.html">Ny chat room</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            
+                <div class="text-feild">
+                    <a><input id="message" class="textarea" type="text"></a>
+                    <a><img onclick="send_message()" class="send-knapp" src="../bilder/images.png"></a>
+                </div>
+                <script src="../burgermenu.js"></script>
+                <script src="../current_user.js"></script>
+                <script src="../send-melding.js"></script>
+            </body>
+            </html>
+            
+            
