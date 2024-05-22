@@ -176,6 +176,8 @@ function generateHTMLFromDatabase(database) {
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
                 </div>
+                <div id="messageContainer"></div>
+                </div>
             
                 <div class="text-feild">
                     <a><input id="message" class="textarea" type="text"></a>
@@ -184,9 +186,9 @@ function generateHTMLFromDatabase(database) {
                 <script src="../burgermenu.js"></script>
                 <script src="../current_user.js"></script>
                 <script src="../send-melding.js"></script>
+                <script src="../get-melding.js"></script>
             </body>
             </html>
-            
             `;
 
             let createTableSql = `CREATE TABLE IF NOT EXISTS ${chatroomName} (
@@ -246,6 +248,21 @@ applikasjon.post("/chatRoom", function(foresporsel, respons) {
     });
 });
 setInterval(() => generateHTMLFromDatabase(database),100);
+
+applikasjon.get("/getChatMessages", function(foresporsel, respons) {
+    let currentchatroom = foresporsel.body.chatroom;
+    let sqlSporring = `SELECT * FROM ${currentchatroom} ORDER BY id DESC`; // Query to retrieve messages in descending order of ID
+    
+    database.all(sqlSporring, [], function(feilmelding, resultater) {
+        if (feilmelding) {
+            respons.status(500).json({ "Feilmelding": feilmelding.currentchatroom });
+            return;
+        }
+
+        respons.json(resultater); // Send retrieved messages as JSON response
+
+    });
+});
 
 applikasjon.listen(portNummer,function(){
     console.log(`Server åpen på http://localhost:${portNummer}`);
