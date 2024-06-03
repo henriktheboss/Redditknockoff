@@ -4,3 +4,4 @@
 brukere.db
 .DS_Store
 chatRoom/*
+node_modules/
