@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const applikasjon = expressModul(); //express modul instans
 const portNummer = 3000;
+const host = '192.168.1.243'; // IP address to bind the server
 
 applikasjon.use(expressModul.json());    //tolk forespørsler som json
 applikasjon.use(expressModul.static(__dirname)); //hoste static filer
@@ -132,7 +133,7 @@ applikasjon.post("/addChatRoom", function(foresporsel, respons){
             "melding":"chat room lagt til",
             "name": foresporsel.body.name,
             "description": foresporsel.body.description,
-            "username": foresporsel.body.description
+            "username": foresporsel.body.username
         });
     });
 });
@@ -247,7 +248,7 @@ applikasjon.post("/chatRoom", function(foresporsel, respons) {
         });
     });
 });
-setInterval(() => generateHTMLFromDatabase(database),100);
+setInterval(() => generateHTMLFromDatabase(database), 100);
 
 applikasjon.get("/getChatMessages", function(foresporsel, respons) {
     let currentchatroom = foresporsel.body.chatroom;
@@ -264,6 +265,6 @@ applikasjon.get("/getChatMessages", function(foresporsel, respons) {
     });
 });
 
-applikasjon.listen(portNummer,function(){
-    console.log(`Server åpen på http://localhost:${portNummer}`);
+applikasjon.listen(portNummer, host, function(){
+    console.log(`Server åpen på http://${host}:${portNummer}`);
 });
