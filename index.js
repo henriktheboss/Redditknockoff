@@ -77,7 +77,7 @@ function createChatroomTable() {
 // Call the function to create the chatroom table
 createChatroomTable();
 
-applikasjon.post("/", function(foresporsel,respons){
+applikasjon.post("/login", function(foresporsel,respons){
     let sqlSporring = "SELECT * FROM bruker WHERE brukernavn = ? AND passord = ?"; // ? placeholders for parameter
     let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord];
     
@@ -117,6 +117,7 @@ applikasjon.post("/addUser", function(foresporsel, respons){
         });
     });
 });
+
 
 
 applikasjon.post("/addChatRoom", function(foresporsel, respons){

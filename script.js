@@ -7,7 +7,7 @@ async function login(){
     const brukernavn = document.getElementById("brukernavn").value
     const passord = document.getElementById("passord").value
 
-    const respons = await fetch("/",{
+    const respons = await fetch("/login",{
         method: "POST",
         headers:{
             "Content-type":"application/json"

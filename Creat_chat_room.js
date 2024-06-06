@@ -14,7 +14,7 @@ function LagNyChatRoom() {
     const username = localStorage.getItem('loggedinBruker')
 
     // Send data to server
-    fetch('http://localhost:3000/addChatRoom', {
+    fetch('http://192.168.1.243:3000/addChatRoom', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
