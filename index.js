@@ -148,7 +148,7 @@ function generateHTMLFromDatabase(database) {
         }
         rows.forEach(row => {
             const chatroomName = row.name;
-            const fileName = 'chatRoom/' + chatroomName.toLowerCase().replace(/\s+/g, '_') + '.html'; // Generate file name from chatroom name
+            const fileName = 'chatRoom/' + chatroomName.toLowerCase().replace(/\s+/g, '_') + '.html';
             const htmlContent =` <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -268,6 +268,22 @@ applikasjon.post("/getMessages", function(foresporsel, respons) {
     });
 });
 
+
+applikasjon.get("/chatrooms", function(foresporsel, respons) {
+    let sqlSporring = "SELECT * FROM chatroom";
+
+    database.all(sqlSporring, function(feilmelding, rader) {
+        if (feilmelding) {
+            respons.status(400).json({"Feilmelding": feilmelding.message});
+            return;
+        }
+
+        respons.json({
+            "melding": "Chatrooms hentet",
+            "chatrooms": rader
+        });
+    });
+});
 
 applikasjon.listen(portNummer, host, function(){
     console.log(`Server åpen på http://${host}:${portNummer}`);
