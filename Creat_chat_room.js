@@ -24,9 +24,7 @@ function LagNyChatRoom() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        // Handle the response as needed
-        //window.location.href = "inxed.html"
-        alert("New chat room created")
+        alert("New chat room created");
         window.location.href = "/chatRoom/" + name + ".html" ;
     })
     .catch(error => {

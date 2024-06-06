@@ -251,20 +251,23 @@ applikasjon.post("/chatRoom", function(foresporsel, respons) {
 });
 setInterval(() => generateHTMLFromDatabase(database), 100);
 
-applikasjon.get("/getChatMessages", function(foresporsel, respons) {
+applikasjon.post("/getMessages", function(foresporsel, respons) {
     let currentchatroom = foresporsel.body.chatroom;
-    let sqlSporring = `SELECT * FROM ${currentchatroom} ORDER BY id DESC`; // Query to retrieve messages in descending order of ID
-    
-    database.all(sqlSporring, [], function(feilmelding, resultater) {
+    let sqlSporring = `SELECT message, timestamp, profile FROM ${currentchatroom}`;
+
+    database.all(sqlSporring, [], function(feilmelding, rows) {
         if (feilmelding) {
-            respons.status(500).json({ "Feilmelding": feilmelding.currentchatroom });
-            return;
+            return respons.status(400).json({ "Feilmelding": feilmelding.message });
         }
 
-        respons.json(resultater); // Send retrieved messages as JSON response
-
+        respons.json({
+            "melding": "Meldinger hentet",
+            "chatroom": currentchatroom,
+            "messages": rows
+        });
     });
 });
+
 
 applikasjon.listen(portNummer, host, function(){
     console.log(`Server åpen på http://${host}:${portNummer}`);
