@@ -175,7 +175,7 @@ function generateHTMLFromDatabase(database) {
                 <div class="sidepanel" id="sidepanel">
                     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidePanel()">&times;</a>
                     <a href="../CreatChatRoom.html">Ny chat room</a>
-                    <a href="#">Link 2</a>
+                    <a href="../inxed.html">Home</a>
                     <a href="#">Link 3</a>
                 </div>
                 <div id="messageContainer"></div>
