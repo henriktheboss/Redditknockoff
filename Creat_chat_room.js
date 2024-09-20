@@ -14,7 +14,7 @@ function LagNyChatRoom() {
     const username = localStorage.getItem('loggedinBruker')
 
     // Send data to server
-    fetch('http://localhost:3000/addChatRoom', {
+    fetch('http://192.168.1.243:3000/addChatRoom', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -24,9 +24,7 @@ function LagNyChatRoom() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        // Handle the response as needed
-        //window.location.href = "inxed.html"
-        alert("New chat room created")
+        alert("New chat room created");
         window.location.href = "/chatRoom/" + name + ".html" ;
     })
     .catch(error => {

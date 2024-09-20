@@ -11,7 +11,7 @@ A brief description of your project.
 
 ## Installation
 
-Npm install node
+Npm install
 
 ## Usage
 

@@ -5,7 +5,7 @@ function send_message() {
     const timestamp = new Date().toLocaleString();
     console.log(chatroom);
 
-    fetch(`http://localhost:3000/chatRoom`, {
+    fetch(`http://192.168.1.243:3000/chatRoom`, {
         method: "POST",
         headers: {
             "Content-type": "application/json"

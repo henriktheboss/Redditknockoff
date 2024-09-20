@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const applikasjon = expressModul(); //express modul instans
 const portNummer = 3000;
+const host = '192.168.1.243'; // IP address to bind the server
 
 applikasjon.use(expressModul.json());    //tolk forespørsler som json
 applikasjon.use(expressModul.static(__dirname)); //hoste static filer
@@ -76,7 +77,7 @@ function createChatroomTable() {
 // Call the function to create the chatroom table
 createChatroomTable();
 
-applikasjon.post("/", function(foresporsel,respons){
+applikasjon.post("/login", function(foresporsel,respons){
     let sqlSporring = "SELECT * FROM bruker WHERE brukernavn = ? AND passord = ?"; // ? placeholders for parameter
     let parameter = [foresporsel.body.brukernavn, foresporsel.body.passord];
     
@@ -118,6 +119,7 @@ applikasjon.post("/addUser", function(foresporsel, respons){
 });
 
 
+
 applikasjon.post("/addChatRoom", function(foresporsel, respons){
     let sqlSporring = "INSERT INTO chatroom (name, description, username) VALUES (?, ?, ?)";
     let parameter = [foresporsel.body.name, foresporsel.body.description, foresporsel.body.username];
@@ -132,7 +134,7 @@ applikasjon.post("/addChatRoom", function(foresporsel, respons){
             "melding":"chat room lagt til",
             "name": foresporsel.body.name,
             "description": foresporsel.body.description,
-            "username": foresporsel.body.description
+            "username": foresporsel.body.username
         });
     });
 });
@@ -146,7 +148,7 @@ function generateHTMLFromDatabase(database) {
         }
         rows.forEach(row => {
             const chatroomName = row.name;
-            const fileName = 'chatRoom/' + chatroomName.toLowerCase().replace(/\s+/g, '_') + '.html'; // Generate file name from chatroom name
+            const fileName = 'chatRoom/' + chatroomName.toLowerCase().replace(/\s+/g, '_') + '.html';
             const htmlContent =` <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -173,7 +175,7 @@ function generateHTMLFromDatabase(database) {
                 <div class="sidepanel" id="sidepanel">
                     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidePanel()">&times;</a>
                     <a href="../CreatChatRoom.html">Ny chat room</a>
-                    <a href="#">Link 2</a>
+                    <a href="../inxed.html">Home</a>
                     <a href="#">Link 3</a>
                 </div>
                 <div id="messageContainer"></div>
@@ -247,23 +249,42 @@ applikasjon.post("/chatRoom", function(foresporsel, respons) {
         });
     });
 });
-setInterval(() => generateHTMLFromDatabase(database),100);
+setInterval(() => generateHTMLFromDatabase(database), 100);
 
-applikasjon.get("/getChatMessages", function(foresporsel, respons) {
+applikasjon.post("/getMessages", function(foresporsel, respons) {
     let currentchatroom = foresporsel.body.chatroom;
-    let sqlSporring = `SELECT * FROM ${currentchatroom} ORDER BY id DESC`; // Query to retrieve messages in descending order of ID
-    
-    database.all(sqlSporring, [], function(feilmelding, resultater) {
+    let sqlSporring = `SELECT message, timestamp, profile FROM ${currentchatroom}`;
+
+    database.all(sqlSporring, [], function(feilmelding, rows) {
         if (feilmelding) {
-            respons.status(500).json({ "Feilmelding": feilmelding.currentchatroom });
-            return;
+            return respons.status(400).json({ "Feilmelding": feilmelding.message });
         }
 
-        respons.json(resultater); // Send retrieved messages as JSON response
-
+        respons.json({
+            "melding": "Meldinger hentet",
+            "chatroom": currentchatroom,
+            "messages": rows
+        });
     });
 });
 
-applikasjon.listen(portNummer,function(){
-    console.log(`Server åpen på http://localhost:${portNummer}`);
+
+applikasjon.get("/chatrooms", function(foresporsel, respons) {
+    let sqlSporring = "SELECT * FROM chatroom";
+
+    database.all(sqlSporring, function(feilmelding, rader) {
+        if (feilmelding) {
+            respons.status(400).json({"Feilmelding": feilmelding.message});
+            return;
+        }
+
+        respons.json({
+            "melding": "Chatrooms hentet",
+            "chatrooms": rader
+        });
+    });
+});
+
+applikasjon.listen(portNummer, host, function(){
+    console.log(`Server åpen på http://${host}:${portNummer}`);
 });

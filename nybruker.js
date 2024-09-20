@@ -7,27 +7,26 @@ function blockSpecialChar(e) {
 }
 
 function lagnybruker() {
-    var username = document.getElementById('brukernavn').value;
-    var password = document.getElementById('passord').value;
+    const brukernavn = document.getElementById('brukernavn').value;
+    const passord = document.getElementById('passord').value;
 
-    // Make an HTTP request to the server-side endpoint for adding a new user
-    fetch('http://localhost:3000/addUser', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ brukernavn: username, passord: password }),
-})
-
+    fetch('http://192.168.1.243:3000/addUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            brukernavn: brukernavn,
+            passord: passord
+        })
+    })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        // Handle the response as needed
+        console.log('Success:', data);
         window.location.href = "inxed.html"
-        alert("New account created")
     })
     .catch(error => {
         console.error('Error:', error);
-        // Handle the error as needed
     });
 }
+
